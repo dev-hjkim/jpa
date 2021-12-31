@@ -18,18 +18,36 @@ public class JpaRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Post post = new Post();
-        post.setTitle("Spring Date JPA");
-
-        Comment comment = new Comment();
-        comment.setCommnet("1234");
-        post.addComment(comment);
-
-        Comment comment2 = new Comment();
-        comment2.setCommnet("5678");
-        post.addComment(comment2);
+//        Post post = new Post();
+//        post.setTitle("Spring Data JPA");
+//
+//        Comment comment = new Comment();
+//        comment.setCommnet("1234");
+//        post.addComment(comment);
+//
+//        Comment comment2 = new Comment();
+//        comment2.setCommnet("5678");
+//        post.addComment(comment2);
 
         Session session = entityManager.unwrap(Session.class);
-        session.save(post);
+
+        //        session.save(post);
+
+        Post post = session.get(Post.class, 1L);
+        System.out.println("================");
+        System.out.println(post.getTitle());
+
+//        Comment comment = session.get(Comment.class, 2L);
+//        System.out.println("================");
+//        System.out.println(comment.getCommnet());
+//        System.out.println(comment.getPost().getTitle());
+
+//        Post post = session.get(Post.class, 1L);
+//        System.out.println("================");
+//        System.out.println(post.getTitle());
+//        post.getComments().forEach(c -> {
+//            System.out.println("----------------");
+//            System.out.println(c.getCommnet());
+//        });
     }
 }
