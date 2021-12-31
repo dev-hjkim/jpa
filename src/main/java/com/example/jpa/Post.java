@@ -12,7 +12,7 @@ public class Post {
 
     private String title;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private Set<Comment> comments = new HashSet<>();
 
     public void addComment(Comment comment) {
@@ -42,5 +42,12 @@ public class Post {
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "title='" + title + '\'' +
+                '}';
     }
 }
