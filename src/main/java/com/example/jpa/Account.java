@@ -2,6 +2,8 @@ package com.example.jpa;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Account {
@@ -14,19 +16,29 @@ public class Account {
 
     private String password;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date created = new Date();
+    @OneToMany
+    private Set<Study> studies = new HashSet<>();
 
-    private String yes;
+    public Set<Study> getStudies() {
+        return studies;
+    }
 
-    @Transient
-    private String no;
-
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name="street", column = @Column(name="home_street"))
-    })
-    private Address address;
+    public void setStudies(Set<Study> studies) {
+        this.studies = studies;
+    }
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date created = new Date();
+//
+//    private String yes;
+//
+//    @Transient
+//    private String no;
+//
+//    @Embedded
+//    @AttributeOverrides({
+//            @AttributeOverride(name="street", column = @Column(name="home_street"))
+//    })
+//    private Address address;
 
     public Long getId() {
         return id;

@@ -1,5 +1,6 @@
 package com.example.jpa;
 
+import org.hibernate.Session;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,15 @@ public class JpaRunner implements ApplicationRunner {
         account.setUsername("hjkim");
         account.setPassword("jpa");
 
-        entityManager.persist(account);
+        Study study = new Study();
+        study.setName("Spring data JPA");
+//        study.setOwner(account);
+
+        account.getStudies().add(study);
+
+        Session session = entityManager.unwrap(Session.class);
+        session.save(account);
+        session.save(study);
+//        entityManager.persist(account);
     }
 }
