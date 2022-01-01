@@ -2,14 +2,20 @@ package com.example.jpa;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public interface CommentRepository extends MyRepository<Comment, Long>{
 
-    @Query(value="SELECT c FROM Comment AS c", nativeQuery = true)  // CREATE_IF_NOT_FOUND 우선순위!
-    List<Comment> findByCommentContains(String keyword);
+    List<Comment> findByCommentContainsIgnoreCaseAndLikeCountGreaterThan(String keyword, int likeCount);
 
-    Page<Comment> findByLikeCountGreaterThanAndPost(int likeCount, Post post, Pageable pageable);
+    List<Comment> findByCommentContainsIgnoreCaseOrderByLikeCountDesc(String keyword);
+
+    Page<Comment> findByCommentContainsIgnoreCase(String keyword, Pageable pageable);
+
+    Stream<Comment> findByCommentContainsIgnoreCase(String keyword);
+
+    Optional<Comment> findByCommentContainsIgnoreCaseAndLikeCount(String keyword, int likeCount);
 }
