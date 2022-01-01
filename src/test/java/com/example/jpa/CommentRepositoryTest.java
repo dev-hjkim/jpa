@@ -32,7 +32,8 @@ class CommentRepositoryTest {
 
         Optional<Comment> byId = commentRepository.findById(100L);
         assertThat(byId).isEmpty(); // optional 객체 내부가 비어있는지 확인
-        Comment comment = byId.orElseThrow(IllegalArgumentException::new);
+//        Comment comment = byId.orElseThrow(IllegalArgumentException::new);
+        Comment comment = byId.orElse(new Comment());
     }
 
 }
