@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,15 +20,19 @@ class CommentRepositoryTest {
 
     @Test
     public void crud() {
-        Comment comment = new Comment();
-        comment.setCommnet("Hello Comment");
-        commentRepository.save(comment);
+//        Comment comment = new Comment();
+//        comment.setCommnet("Hello Comment");
+//        commentRepository.save(comment);
+//
+//        List<Comment> all = commentRepository.findAll();
+//        assertThat(all.size()).isEqualTo(1);
+//
+//        long count = commentRepository.count();
+//        assertThat(count).isEqualTo(1);
 
-        List<Comment> all = commentRepository.findAll();
-        assertThat(all.size()).isEqualTo(1);
-
-        long count = commentRepository.count();
-        assertThat(count).isEqualTo(1);
+        Optional<Comment> byId = commentRepository.findById(100L);
+        assertThat(byId).isEmpty(); // optional 객체 내부가 비어있는지 확인
+        Comment comment = byId.orElseThrow(IllegalArgumentException::new);
     }
 
 }
