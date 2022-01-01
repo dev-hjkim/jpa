@@ -8,7 +8,9 @@ public class Comment {
     @GeneratedValue
     private Long id;
 
-    private String commnet;
+    private String comment;
+
+    private Integer likeCount;
 
     @ManyToOne
     private Post post;
@@ -21,12 +23,20 @@ public class Comment {
         this.id = id;
     }
 
-    public String getCommnet() {
-        return commnet;
+    public String getComment() {
+        return comment;
     }
 
-    public void setCommnet(String commnet) {
-        this.commnet = commnet;
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Integer getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
     }
 
     public Post getPost() {

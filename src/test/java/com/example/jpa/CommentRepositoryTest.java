@@ -21,7 +21,7 @@ class CommentRepositoryTest {
     @Test
     public void crud() {
 //        Comment comment = new Comment();
-//        comment.setCommnet("Hello Comment");
+//        comment.setComment("Hello Comment");
 //        commentRepository.save(comment);
 //
 //        List<Comment> all = commentRepository.findAll();
