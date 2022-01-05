@@ -3,6 +3,8 @@ package com.example.jpa.post;
 import com.example.jpa.post2.Post2;
 import com.example.jpa.post2.PostPublishedEvent;
 import com.example.jpa.post2.PostRepository2;
+import com.example.jpa.post2.QPost2;
+import com.querydsl.core.types.Predicate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,18 +38,29 @@ class Post2RepositoryTest {
 //        applicationContext.publishEvent(event);
 //    }
 
+//    @Test
+//    public void crud() {
+//        Post2 post2 = new Post2();
+//        post2.setTitle("hibernate");
+//
+//        assertThat(postRepository2.contains(post2)).isFalse();  // transient 상태
+//        postRepository2.save(post2.publish());
+//
+//        assertThat(postRepository2.contains(post2)).isTrue();  // persist 상태
+//
+//        postRepository2.delete(post2);
+//        postRepository2.flush();    // db와 싱크
+//    }
+
     @Test
     public void crud() {
         Post2 post2 = new Post2();
         post2.setTitle("hibernate");
-
-        assertThat(postRepository2.contains(post2)).isFalse();  // transient 상태
         postRepository2.save(post2.publish());
 
-        assertThat(postRepository2.contains(post2)).isTrue();  // persist 상태
-
-        postRepository2.delete(post2);
-        postRepository2.flush();    // db와 싱크
+        Predicate predicate = QPost2.post2.title.containsIgnoreCase("Hi");
+        Optional<Post2> one = postRepository2.findOne(predicate);
+        assertThat(one).isNotEmpty();
     }
 
 }
