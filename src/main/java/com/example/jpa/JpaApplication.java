@@ -1,5 +1,7 @@
 package com.example.jpa;
 
+import com.example.jpa.book.CustomRepository;
+import com.example.jpa.book.CustomRepositoryImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
@@ -9,7 +11,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 //@EnableJpaRepositories(queryLookupStrategy = QueryLookupStrategy.Key.CREATE_IF_NOT_FOUND)
-@EnableJpaRepositories(repositoryImplementationPostfix = "Default", repositoryBaseClass = SimpleMyRepository.class)
+//@EnableJpaRepositories(repositoryImplementationPostfix = "Default", repositoryBaseClass = SimpleMyRepository.class)
+@EnableJpaRepositories(repositoryBaseClass = CustomRepositoryImpl.class)
 @EnableAsync
 @Import(BeanRegistrar.class)
 public class JpaApplication {
