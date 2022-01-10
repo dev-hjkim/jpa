@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 public class Post3 {
-    @GeneratedValue
+//    @GeneratedValue
     @Id
     private Long id;
 
