@@ -12,6 +12,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,78 +23,73 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
-//@SpringBootTest
-//@AutoConfigureMockMvc
-//@ActiveProfiles("test")
+@SpringBootTest
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
 @DataJpaTest
 public class Post3ControllerTest {
 
-//    @Autowired
-//    MockMvc mockMvc;
+    @Autowired
+    MockMvc mockMvc;
 
     @Autowired
     PostRepository3 postRepository;
 
-//    @Test
-//    public void getPost() throws Exception {
-//        Post3 post = new Post3();
-//        post.setTitle("jpa");
-//        postRepository.save(post);
-//
-//        mockMvc.perform(MockMvcRequestBuilders.get("/posts3/" + post.getId()))
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect(content().string("jpa"));
-//    }
-//
-//    @Test
-//    public void getPosts() throws Exception {
-//        Post3 post = new Post3();
-//        post.setTitle("jpa");
-//        postRepository.save(post);
-//
-//        mockMvc.perform(MockMvcRequestBuilders.get("/posts3/")
-//                        .param("page", "0")
-//                        .param("size", "10")
-//                        .param("sort", "created,desc")
-//                        .param("sort", "title"))
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.content[0].id").value("1001"));
-//    }
-//
-//    @Test
-//    public void getPostsHateoas() throws Exception {
-//        createPosts3();
-//
-//        mockMvc.perform(MockMvcRequestBuilders.get("/posts3/hateoas/")
-//                        .param("page", "3")
-//                        .param("size", "10")
-//                        .param("sort", "created,desc")
-//                        .param("sort", "title"))
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$._embedded.post3List[0].title").value("jpa"));
-//    }
-//
-//    private void createPosts3() {
-//        int postsCount = 100;
-//        while (postsCount > 0) {
-//            Post3 post = new Post3();
-//            post.setTitle("jpa");
-//            postRepository.save(post);
-//            postsCount--;
-//        }
-//    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Test
-    public void crud() {
-        Post3 post3 = new Post3();
-        post3.setTitle("jpa");
-        postRepository.save(post3); //JpaSystemException 발생
+    public void getPost() throws Exception {
+        Post3 post = new Post3();
+        post.setTitle("jpa");
+        postRepository.save(post);
 
-        List<Post3> all = postRepository.findAll();
-        assertThat(all.size()).isEqualTo(1);
+        mockMvc.perform(MockMvcRequestBuilders.get("/posts3/" + post.getId()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string("jpa"));
     }
+
+    @Test
+    public void getPosts() throws Exception {
+        Post3 post = new Post3();
+        post.setTitle("jpa");
+        postRepository.save(post);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/posts3/")
+                        .param("page", "0")
+                        .param("size", "10")
+                        .param("sort", "created,desc")
+                        .param("sort", "title"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].id").value("1001"));
+    }
+
+    @Test
+    public void getPostsHateoas() throws Exception {
+        createPosts3();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/posts3/hateoas/")
+                        .param("page", "3")
+                        .param("size", "10")
+                        .param("sort", "created,desc")
+                        .param("sort", "title"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.post3List[0].title").value("jpa"));
+    }
+
+    private void createPosts3() {
+        int postsCount = 100;
+        while (postsCount > 0) {
+            Post3 post = new Post3();
+            post.setTitle("jpa");
+            postRepository.save(post);
+            postsCount--;
+        }
+    }
+
+
 
 }

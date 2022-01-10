@@ -12,9 +12,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 //@EnableJpaRepositories(queryLookupStrategy = QueryLookupStrategy.Key.CREATE_IF_NOT_FOUND)
 //@EnableJpaRepositories(repositoryImplementationPostfix = "Default", repositoryBaseClass = SimpleMyRepository.class)
-//@EnableJpaRepositories(repositoryBaseClass = CustomRepositoryImpl.class)
-//@EnableAsync
-//@Import(BeanRegistrar.class)
+@EnableJpaRepositories(repositoryBaseClass = CustomRepositoryImpl.class)
+@EnableAsync
+@Import(BeanRegistrar.class)
 public class JpaApplication {
 
     public static void main(String[] args) {
