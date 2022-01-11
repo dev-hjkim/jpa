@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+//@NamedQuery(name="Post4.findByTitle", query = "SELECT p FROM Post4 AS p WHERE p.title = ?1")  // 지저분해질 수 있음, repository로!
+//@NamedNativeQuery
 public class Post4 {
     @GeneratedValue
     @Id

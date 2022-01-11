@@ -58,4 +58,27 @@ class PostRepository4Test {
         assertThat(all.size()).isEqualTo(1);
     }
 
+
+    @Test
+    public void findByTitleStartsWith() {
+        savePost();
+
+        List<Post4> all = postRepository.findByTitleStartsWith("spring");
+        assertThat(all.size()).isEqualTo(1);
+    }
+
+    private void savePost() {
+        Post4 post4 = new Post4();
+        post4.setTitle("spring");
+        postRepository.save(post4);
+    }
+
+    @Test
+    public void findByTitle() {
+        savePost();
+
+        List<Post4> all = postRepository.findByTitle("spring");
+        assertThat(all.size()).isEqualTo(1);
+    }
+
 }
