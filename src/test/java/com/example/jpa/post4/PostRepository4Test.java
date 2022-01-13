@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
@@ -77,7 +79,8 @@ class PostRepository4Test {
     public void findByTitle() {
         savePost();
 
-        List<Post4> all = postRepository.findByTitle("spring");
+//        List<Post4> all = postRepository.findByTitle("spring", Sort.by("title"));
+        List<Post4> all = postRepository.findByTitle("spring", JpaSort.unsafe("LENGTH(title)"));
         assertThat(all.size()).isEqualTo(1);
     }
 
