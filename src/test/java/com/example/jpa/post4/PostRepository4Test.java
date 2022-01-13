@@ -11,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -69,10 +70,10 @@ class PostRepository4Test {
         assertThat(all.size()).isEqualTo(1);
     }
 
-    private void savePost() {
+    private Post4 savePost() {
         Post4 post4 = new Post4();
         post4.setTitle("spring");
-        postRepository.save(post4);
+        return postRepository.save(post4);
     }
 
     @Test
@@ -84,4 +85,24 @@ class PostRepository4Test {
         assertThat(all.size()).isEqualTo(1);
     }
 
+    @Test
+    public void updateTitle() {
+        Post4 spring = savePost();
+
+        String hibernate = "hibernate";
+        int update = postRepository.updateTitle(hibernate, spring.getId());
+        assertThat(update).isEqualTo(1);
+
+        Optional<Post4> byId = postRepository.findById(spring.getId());
+        assertThat(byId.get().getTitle()).isEqualTo(hibernate);
+    }
+
+    @Test
+    public void updateTitleWithModifying() {
+        Post4 spring = savePost();
+        spring.setTitle("hibernate");
+
+        List<Post4> all = postRepository.findAll();
+        assertThat(all.get(0).getTitle()).isEqualTo("hibernate");
+    }
 }
