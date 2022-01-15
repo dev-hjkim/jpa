@@ -35,12 +35,26 @@ dependencies {
     implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
     implementation 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'org.hibernate:hibernate-jpamodelgen'
+    annotationProcessor('org.hibernate:hibernate-jpamodelgen')
+
     annotationProcessor('org.projectlombok:lombok')
     testAnnotationProcessor('org.projectlombok:lombok')
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.h2database:h2'
 
+}
+
+
+
+sourceSets {
+    generated {
+        java {
+            srcDirs = ["$buildDir/generated/jpamodelgen"]
+        }
+    }
 }
 
 test {
