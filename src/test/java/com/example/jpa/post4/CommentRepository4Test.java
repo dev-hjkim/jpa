@@ -21,11 +21,20 @@ class CommentRepository4Test {
 
     @Test
     public void getComment() {
-        System.out.println("getById start!");
-        commentRepository.getById(1l);
+        Post4 post = new Post4();
+        post.setTitle("jpa");
+        Post4 savedPost = postRepository.save(post);
 
-        System.out.println("=========================");
+        Comment4 comment = new Comment4();
+        comment.setComment("spring data jpa projection");
+        comment.setPost(savedPost);
+        comment.setUp(10);
+        comment.setDown(1);
+        commentRepository.save(comment);
 
-        commentRepository.findById(1l);
+        commentRepository.findByPost_Id(savedPost.getId(), CommentOnly.class).forEach(c -> {
+            System.out.println("==========================");
+            System.out.println(c.getComment());
+        });
     }
 }
