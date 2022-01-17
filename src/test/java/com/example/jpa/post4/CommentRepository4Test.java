@@ -1,13 +1,18 @@
 package com.example.jpa.post4;
 
+import com.example.jpa.BeanRegistrar;
+import com.example.jpa.PersistenceConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
@@ -17,7 +22,7 @@ import static com.example.jpa.post4.CommentSpecs.isGood;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
-@DataJpaTest
+@SpringBootTest
 class CommentRepository4Test {
     @Autowired
     CommentRepository4 commentRepository;

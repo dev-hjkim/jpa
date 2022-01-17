@@ -5,6 +5,7 @@ import com.example.jpa.book.CustomRepositoryImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.QueryLookupStrategy;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -15,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableJpaRepositories(repositoryBaseClass = CustomRepositoryImpl.class)
 @EnableAsync
 @Import(BeanRegistrar.class)
+@EnableJpaAuditing(auditorAwareRef = "accountAuditAware", dateTimeProviderRef = "auditingDateTimeProvider")
 public class JpaApplication {
 
     public static void main(String[] args) {
