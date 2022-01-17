@@ -20,6 +20,9 @@ public class Comment4 {
 
     private String comment;
 
+    @Enumerated(value = EnumType.STRING)
+    private CommentStatus commentStatus;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Post4 post;
 
