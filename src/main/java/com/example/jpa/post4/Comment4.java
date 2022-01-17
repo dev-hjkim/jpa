@@ -90,4 +90,9 @@ public class Comment4 {
     public void setPost(Post4 post) {
         this.post = post;
     }
+
+    @PrePersist
+    public void prePersist() {
+        System.out.println("Pre Persist is called");
+    }
 }
